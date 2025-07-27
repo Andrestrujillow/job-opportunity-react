@@ -1,0 +1,45 @@
+/* src/styles/Formulario.css */
+.formulario-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.formulario-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.formulario-container form label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.formulario-container input,
+.formulario-container textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.formulario-container button {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 0.75rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.formulario-container button:hover {
+  background-color: #1d4ed8;
+}

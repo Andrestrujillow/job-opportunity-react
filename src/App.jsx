@@ -1,35 +1,53 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// src/App.jsx
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { useState } from "react";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Login from "./pages/Login";
+import Registro from "./pages/Registro";
+import FormularioCesante from "./pages/FormularioCesante";
+import FormularioEmpresa from "./pages/FormularioEmpresa";
+import HomeCesante from "./pages/HomeCesante";
+import HomeEmpresa from "./pages/HomeEmpresa";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [userType, setUserType] = useState(null);
+
+  // Determinar si se ocultan navbar/footer
+  const hideHeaderFooter = ["/", "/login", "/registro"].includes(window.location.pathname);
+
+  // Función para cerrar sesión
+  const logout = () => {
+    setUserType(null);
+    window.location.href = "/login";
+  };
+
+  // Función para redirigir según tipo de usuario
+  const handleLogin = (type) => {
+    setUserType(type);
+    if (type === "cesante") {
+      window.location.href = "/home/cesante";
+    } else if (type === "empresa") {
+      window.location.href = "/home/empresa";
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="App">
+      {!hideHeaderFooter && <Navbar onLogout={logout} />}
+      <Routes>
+        <Route path="/" element={<Login setUserType={handleLogin} />} />
+        <Route path="/login" element={<Login setUserType={handleLogin} />} />
+        <Route path="/registro" element={<Registro />} />
+        <Route path="/registro/cesante" element={<FormularioCesante />} />
+        <Route path="/registro/empresa" element={<FormularioEmpresa />} />
+        <Route path="/home/cesante" element={<HomeCesante />} />
+        <Route path="/home/empresa" element={<HomeEmpresa />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+      {!hideHeaderFooter && <Footer />}
+    </div>
+  );
 }
 
-export default App
+export default App;
